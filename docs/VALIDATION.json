@@ -1,0 +1,66 @@
+{
+  "validatedOn": "2026-11-02",
+  "timezone": "Asia/Jerusalem",
+  "workflow": "Next.js production build and development server; key-free demo",
+  "commands": {
+    "cleanInstall": "npm ci --no-audit --no-fund — passed",
+    "build": "npm run build — passed, includes 200000-byte globe gate",
+    "lint": "npm run lint — passed",
+    "typecheck": "npm run typecheck — passed",
+    "fullTests": "59 passed, 0 failed, 0 skipped",
+    "afterFontChange": "7 targeted checks passed; 30 page/viewport axe scans + 3 interactive states",
+    "finalMobileChecks": "3 passed, covering 21 route/locale combinations at 390px",
+    "lighthouse": "npm run audit — passed, exact CLS = 0 required",
+    "devSmoke": "npm run dev -- --port 3001 — HTTP200 page and planner API with 2 demo options"
+  },
+  "globeGzipBytes": 132577,
+  "lighthouse": {
+    "generatedAt": "2026-11-01T23:43:11.626Z",
+    "profile": "Lighthouse mobile simulated throttling",
+    "thresholds": {
+      "performance": 95,
+      "accessibility": 95,
+      "bestPractices": 95,
+      "lcpMs": 2000,
+      "cls": 0
+    },
+    "note": "SEO is reported, not gated, because this concept intentionally has noindex.",
+    "results": [
+      {
+        "route": "/he/about",
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 60,
+        "lcp": 910,
+        "cls": 0,
+        "passed": true
+      },
+      {
+        "route": "/ru/about",
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 60,
+        "lcp": 908,
+        "cls": 0,
+        "passed": true
+      },
+      {
+        "route": "/en/about",
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 60,
+        "lcp": 911,
+        "cls": 0,
+        "passed": true
+      }
+    ]
+  },
+  "limits": [
+    "Mobile Lighthouse uses local Chromium with simulated throttling, not a physical-phone field measurement.",
+    "Paid LLM provider calls, a real CRM webhook, real inventory and a public deployment were not exercised. No provider keys or production recipients were supplied.",
+    "Automated axe checks are not a WCAG or IS5568 legal certification."
+  ]
+}

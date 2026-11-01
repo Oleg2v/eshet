@@ -1,0 +1,497 @@
+/* The controls are real range inputs; the rotary surface is a progressive enhancement. */
+.dial-sr-only {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.feeling-dials {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2.2vw, 30px);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  max-inline-size: 520px;
+  min-inline-size: 0;
+}
+.feeling-dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-inline-size: 0;
+  gap: 12px;
+}
+.dial-name {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink, #15181c);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.dial-mechanism {
+  position: relative;
+  inline-size: 76px;
+  block-size: 76px;
+  flex: none;
+  border-radius: 50%;
+  isolation: isolate;
+}
+.dial-scale {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 225deg,
+    #bcbfb2 0deg 1deg,
+    transparent 1deg 14.5deg
+  );
+  mask: radial-gradient(transparent 63%, #000 64%);
+  opacity: 0.65;
+}
+.dial-scale::after {
+  content: "";
+  position: absolute;
+  inset: 50% 16% -1px;
+  background: var(--sand, #f7f2ea);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.dial-knob {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #fffdf7;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fffefa, #e7e6db);
+  box-shadow:
+    0 4px 8px #333b2f16,
+    0 1px 2px #333b2f24,
+    inset 0 -2px 3px #6d78621a;
+  transform: rotate(var(--dial-angle));
+  transition: transform 70ms linear;
+}
+.dial-knob::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid #c5cbbb4d;
+  border-radius: 50%;
+}
+.dial-pointer {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: calc(50% - 1.5px);
+  inline-size: 3px;
+  block-size: 12px;
+  background: var(--sea, #2f7f77);
+  border-radius: 3px;
+}
+.dial-mechanism input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 50%;
+}
+.dial-mechanism input:active {
+  cursor: grabbing;
+}
+.dial-mechanism:has(input:focus-visible) {
+  outline: 2px solid var(--sea, #2f7f77);
+  outline-offset: 6px;
+}
+.dial-extremes {
+  display: flex;
+  justify-content: space-between;
+  inline-size: 100%;
+  gap: 5px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #526057;
+  white-space: nowrap;
+}
+.travel-globe {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 1.08;
+  min-inline-size: 0;
+  max-inline-size: 720px;
+  margin-inline: auto;
+  isolation: isolate;
+  contain: layout;
+}
+.globe-ambient {
+  position: absolute;
+  inset: 5% -3% 0;
+  background: radial-gradient(
+    ellipse at 48% 43%,
+    #e9ddb05c 0,
+    #e7daba2b 45%,
+    transparent 68%
+  );
+  border-radius: 50%;
+  z-index: -2;
+}
+.globe-visual {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 27px 16px #466d5a17);
+}
+.globe-flat-map {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  transition: opacity 0.7s ease;
+  opacity: 1;
+}
+.globe-visual-ready .globe-flat-map {
+  opacity: 0;
+}
+.globe-webgl {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.globe-visual-ready .globe-webgl {
+  opacity: 1;
+}
+.globe-webgl canvas {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+.globe-orbit {
+  position: absolute;
+  inset: 13% 2% 16%;
+  border: 1px solid #7d918540;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+.globe-orbit-one {
+  transform: rotate(-24deg) scaleY(0.69);
+}
+.globe-orbit-two {
+  inset: 3% 15% 8%;
+  transform: rotate(27deg) scaleX(0.73);
+  border-color: #adada530;
+}
+.globe-coordinate {
+  position: absolute;
+  color: #657369;
+  font: 9px/1.2 var(--font-sans, sans-serif);
+  letter-spacing: 0.14em;
+  direction: ltr;
+}
+.globe-coordinate-top {
+  inset-block-start: 6%;
+  inset-inline-start: 13%;
+}
+.globe-match {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  direction: ltr;
+  transition:
+    top 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    left 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.globe-pin {
+  position: relative;
+  inline-size: 12px;
+  block-size: 12px;
+  background: var(--sea, #2f7f77);
+  border: 2px solid #f8f7e8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px #2f7f7720;
+  flex: none;
+}
+.globe-pin::after {
+  content: "";
+  position: absolute;
+  inset: -11px;
+  border: 1px solid #2f7f7740;
+  border-radius: 50%;
+  animation: globe-pulse 3.5s ease-out infinite;
+}
+.globe-place-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-inline-start: 13px;
+  min-inline-size: 145px;
+  padding: 14px 18px 12px;
+  background: #fffcf4ed;
+  box-shadow: 0 10px 30px #244b3920;
+  border: 1px solid #fffdf6;
+  border-radius: 3px;
+  backdrop-filter: blur(8px);
+  text-align: start;
+  direction: ltr;
+  transform: translateY(-7px);
+}
+[dir="rtl"] .globe-place-card,
+[dir="rtl"] .globe-mini-card {
+  direction: rtl;
+}
+.globe-place-card::before {
+  content: "";
+  position: absolute;
+  inline-size: 14px;
+  block-size: 1px;
+  background: #75897a;
+  inset-inline-end: 100%;
+  inset-block-start: 50%;
+}
+[dir="rtl"] .globe-place-card::before {
+  inset-inline-end: auto;
+  inset-inline-start: 100%;
+}
+.globe-match-kicker {
+  font-size: 9px;
+  color: #49695d;
+  line-height: 1.4;
+}
+.globe-place-card strong {
+  font-family: var(--font-display, Georgia, serif);
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 1.25;
+  color: var(--ink, #15181c);
+}
+.globe-price {
+  font-size: 12px;
+  color: var(--ink, #15181c);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.globe-place-card small {
+  font-size: 9px;
+  line-height: 1.4;
+  color: #5c665e;
+}
+.globe-mini-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #f7f2eade;
+  padding: 7px 12px;
+  margin-inline-start: 12px;
+  border: 1px solid #fffaf0;
+  border-radius: 2px;
+  box-shadow: 0 6px 20px #244b3910;
+  white-space: nowrap;
+  color: var(--ink, #15181c);
+  font-size: 13px;
+}
+.globe-mini-card small {
+  font-size: 9px;
+  color: #5c665e;
+}
+.globe-match-secondary .globe-pin {
+  inline-size: 8px;
+  block-size: 8px;
+  box-shadow: 0 0 0 4px #2f7f7712;
+}
+.globe-match-secondary .globe-pin::after {
+  display: none;
+}
+.globe-compass {
+  position: absolute;
+  inset-inline-end: 9%;
+  inset-block-end: 14%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #67786c;
+  font: 9px/1 sans-serif;
+  direction: ltr;
+}
+.globe-compass svg {
+  inline-size: 34px;
+  block-size: 34px;
+  transform: rotate(24deg);
+}
+.globe-bottom-note {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #52665a;
+  letter-spacing: 0.01em;
+}
+.globe-live-dot {
+  inline-size: 5px;
+  block-size: 5px;
+  background: #47796c;
+  border-radius: 50%;
+}
+@keyframes globe-pulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  85%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+@media (pointer: fine) {
+  .globe-visual {
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23f7f2ea' fill-opacity='.85' stroke='%232f7f77'/%3E%3Cpath d='m21 10-3 8-8 3 3-8Z' fill='%232f7f77'/%3E%3C/svg%3E")
+        16 16,
+      crosshair;
+  }
+}
+@media (max-width: 700px) {
+  .feeling-dials {
+    gap: 16px;
+    max-inline-size: none;
+  }
+  .dial-mechanism {
+    inline-size: 67px;
+    block-size: 67px;
+  }
+  .dial-name {
+    font-size: 10px;
+  }
+  .dial-extremes {
+    font-size: 9px;
+    justify-content: center;
+    gap: 8px;
+  }
+  .dial-extremes span + span::before {
+    content: "·";
+    margin-inline-end: 8px;
+    color: #8c998c;
+  }
+  .feeling-dial {
+    gap: 9px;
+  }
+  .travel-globe {
+    max-inline-size: 520px;
+    aspect-ratio: 1.12;
+  }
+  .globe-place-card {
+    min-inline-size: 119px;
+    padding: 10px 12px;
+    margin-inline-start: 9px;
+  }
+  .globe-place-card strong {
+    font-size: 22px;
+  }
+  .globe-price {
+    font-size: 10px;
+  }
+  .globe-match-kicker {
+    font-size: 8px;
+  }
+  .globe-place-card small {
+    font-size: 8px;
+  }
+  .globe-mini-card {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+  .globe-mini-card small {
+    font-size: 8px;
+  }
+  .globe-coordinate-top {
+    font-size: 8px;
+    inset-inline-start: 9%;
+    inset-block-start: 3%;
+  }
+  .globe-bottom-note {
+    font-size: 10px;
+    inset-block-end: 0;
+  }
+  .globe-compass {
+    inset-block-end: 10%;
+    inset-inline-end: 7%;
+  }
+}
+@media (max-width: 370px) {
+  .feeling-dials {
+    gap: 8px;
+  }
+  .dial-mechanism {
+    inline-size: 60px;
+    block-size: 60px;
+  }
+  .dial-extremes {
+    gap: 4px;
+  }
+  .dial-extremes span + span::before {
+    margin-inline-end: 4px;
+  }
+  .globe-place-card {
+    min-inline-size: 110px;
+    padding: 8px;
+  }
+  .globe-place-card strong {
+    font-size: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dial-knob,
+  .globe-match,
+  .globe-webgl,
+  .globe-flat-map {
+    transition: none;
+  }
+  .globe-pin::after {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+/* Keep every map label within a 390px viewport, including longer Russian names. */
+.globe-place-card {
+  inline-size: 160px;
+}
+@media (max-width: 700px) {
+  .globe-place-card {
+    inline-size: 132px;
+    min-inline-size: 0;
+  }
+  .globe-match-primary {
+    transform: translateX(-15px);
+  }
+  [lang="ru"] .dial-extremes {
+    flex-direction: column;
+    gap: 1px;
+    text-align: center;
+    white-space: normal;
+  }
+  [lang="ru"] .dial-extremes span + span::before {
+    content: none;
+  }
+}
+@media (max-width: 370px) {
+  .globe-match-primary {
+    transform: translateX(-22px);
+  }
+}
+/* The hero supplies its own editorial caption beneath the atlas. */
+.hero-world .globe-bottom-note {
+  display: none;
+}

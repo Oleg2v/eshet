@@ -1,0 +1,42 @@
+{
+  "name": "eshet-concept",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build --webpack && npm run budget",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "audit": "node scripts/audit.mjs",
+    "format": "prettier --write src tests scripts *.ts *.mjs *.json *.md docs",
+    "budget": "node scripts/check-globe-budget.mjs"
+  },
+  "dependencies": {
+    "@fontsource/frank-ruhl-libre": "^5.2.0",
+    "@fontsource/fraunces": "^5.2.0",
+    "@fontsource/heebo": "^5.2.0",
+    "gsap": "^3.14.0",
+    "lenis": "^1.3.0",
+    "lucide-react": "^0.562.0",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.182.0",
+    "dotenv": "^17.2.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "lighthouse": "^13.0.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.0"
+  }
+}
