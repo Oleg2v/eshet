@@ -64,6 +64,7 @@ export function rateLimit(
       if (value.until < now) windows.delete(key);
   if (windows.size > 5000) return false;
   const ip =
+    request.headers.get("cf-connecting-ip") ||
     request.headers.get("x-forwarded-for")?.split(",")[0].trim().slice(0, 80) ||
     "local";
   const key = `${scope}:${ip}`;

@@ -16,6 +16,10 @@ The app starts on port 3000. `/` redirects to `/he`; use `/ru` or `/en` for the 
 
 No API key is required: the planner uses scripted demo flows and every public tool works in demonstration mode. The tested dependency versions are captured in `package-lock.json`.
 
+## Deploy to Cloudflare
+
+Cloudflare Workers is supported with OpenNext and durable D1 enquiry storage. Build with `npm run cf:build`, validate locally with `npm run cf:migrate:local` and `npm run cf:preview`, and deploy with `npm run cf:deploy` after configuring the authorised account and database. Full steps and the current access requirements are in [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md).
+
 ## Deploy to Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FOleg2v%2Feshet)
@@ -47,7 +51,7 @@ Copy `.env.example` to a private `.env.local` only when you need integrations. N
 
 An AI key does not provide real inventory, a real price, a visa decision or booking authority. The same factual guardrails and example labels remain active with a provider connected.
 
-The protected inbox is a demonstration, not production CRM or staff authentication. Serverless temporary files are not durable or shared storage. Read [CONNECT_REAL_SYSTEMS.md](CONNECT_REAL_SYSTEMS.md) before connecting real data or recipients.
+The protected inbox is a demonstration, not production CRM or staff authentication. Cloudflare uses the configured D1 database; the Node demo uses local files, and Vercel temporary files are not durable or shared storage. Read [CONNECT_REAL_SYSTEMS.md](CONNECT_REAL_SYSTEMS.md) before connecting real data or recipients.
 
 ## Main journeys
 

@@ -222,9 +222,9 @@ export default function BriefDialog({ locale }: { locale: Locale }) {
                 <p className="example-note">
                   {pick(
                     locale,
-                    "במצב הדגמה הפנייה נשמרת מקומית. שליחה אמיתית פעילה רק לאחר חיבור המערכת.",
-                    "В деморежиме заявка сохраняется локально. Реальная отправка работает после подключения системы.",
-                    "In demo mode your request is saved locally. Live delivery requires a configured connection.",
+                    "במצב הדגמה הפנייה נשמרת במערכת ההדגמה. שליחה אמיתית פעילה רק לאחר חיבור המערכת.",
+                    "В деморежиме заявка сохраняется в демосистеме. Реальная отправка работает после подключения системы.",
+                    "In demo mode your request is saved in this demonstration system. Live delivery requires a configured connection.",
                   )}
                 </p>
                 <button

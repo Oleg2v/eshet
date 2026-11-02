@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Brief, Lead } from "@/lib/types";
+import { getLeadDatabase } from "./cloudflare-store";
 
 const directory =
   process.env.LEAD_STORE_DIR ||
@@ -11,7 +12,46 @@ const directory =
 const file = path.join(directory, "leads.json");
 let queue: Promise<unknown> = Promise.resolve();
 
+type StoredLead = {
+  id: string;
+  created_at: string;
+  source: string;
+  status: Lead["status"];
+  brief_json: string;
+  webhook: Lead["webhook"];
+};
+
+export function leadStorageKind() {
+  if (getLeadDatabase()) return "cloudflare-d1";
+  return process.env.VERCEL ? "ephemeral" : "local-demo";
+}
+
 export async function readLeads(): Promise<Lead[]> {
+  const database = getLeadDatabase();
+  if (database) {
+    const result = await database
+      .prepare(
+        "SELECT id, created_at, source, status, brief_json, webhook FROM leads ORDER BY created_at DESC, id DESC LIMIT 1000",
+      )
+      .all<StoredLead>();
+    if (!result.success || !Array.isArray(result.results)) {
+      throw new Error("Lead store unavailable");
+    }
+    return result.results.map((row) => {
+      const brief: unknown = JSON.parse(row.brief_json);
+      if (!brief || typeof brief !== "object" || Array.isArray(brief)) {
+        throw new Error("Stored enquiry could not be read");
+      }
+      return {
+        id: row.id,
+        createdAt: row.created_at,
+        source: row.source,
+        status: row.status,
+        brief: brief as Brief,
+        webhook: row.webhook,
+      };
+    });
+  }
   try {
     const parsed: unknown = JSON.parse(await readFile(file, "utf8"));
     return Array.isArray(parsed)
@@ -42,6 +82,24 @@ export async function saveLead(
     brief,
     webhook,
   };
+  const database = getLeadDatabase();
+  if (database) {
+    const result = await database
+      .prepare(
+        "INSERT INTO leads (id, created_at, source, status, brief_json, webhook) VALUES (?, ?, ?, ?, ?, ?)",
+      )
+      .bind(
+        lead.id,
+        lead.createdAt,
+        lead.source,
+        lead.status,
+        JSON.stringify(lead.brief),
+        lead.webhook,
+      )
+      .run();
+    if (!result.success) throw new Error("Lead store unavailable");
+    return lead;
+  }
   const action = queue
     .catch(() => undefined)
     .then(async () => {
@@ -60,6 +118,16 @@ export async function saveLead(
   return lead;
 }
 export async function setDelivery(id: string, webhook: Lead["webhook"]) {
+  const database = getLeadDatabase();
+  if (database) {
+    const result = await database
+      .prepare("UPDATE leads SET webhook = ? WHERE id = ?")
+      .bind(webhook, id)
+      .run();
+    if (!result.success)
+      throw new Error("Lead delivery status could not be saved");
+    return;
+  }
   const action = queue
     .catch(() => undefined)
     .then(async () => {

@@ -62,3 +62,15 @@ These are editorial review scores, not an award, external evaluation or legal ce
 ## Implemented but not externally exercised
 
 No OpenAI/Anthropic key, real inventory connection, production webhook recipient, payment system or public deployment was supplied. Provider adapters and validated JSON handling are implemented; actual paid provider responses and real delivery were **not** tested. Demo behavior was tested without those credentials. Content still requires the commercial/legal confirmations listed in CONFIRM_WITH_CLIENT.md before an official launch. The local inbox is demonstration storage, not durable production CRM. Automated tests do not certify WCAG 2.2 AA or IS 5568 compliance.
+
+## Cloudflare deployment preparation — 2 November 2026
+
+- [x] OpenNext Worker build passes with all API routes.
+- [x] Local D1 migration passes; the protected inbox reports `cloudflare-d1`.
+- [x] Full Playwright suite against the actual local Workers runtime: **59 passed, 0 failed, 0 skipped**.
+- [x] A submitted test enquiry remains available after stopping and restarting the Worker.
+- [x] Wrangler deploy dry-run passes: **6,228.69 KiB total / 1,286.08 KiB gzip**. No upload takes place during this check.
+- [x] Rendered Hebrew, Russian and English home pages have no provider/AI-creator attribution.
+- [ ] **Public Cloudflare deployment is blocked by account access.** Wrangler reports no authenticated account; this environment's current proxy policy rejects `api.cloudflare.com`. A secure token requirement and the required API destination were saved in the environment draft. No public deployment URL is claimed.
+
+Evidence is in ignored `reports/cloudflare-playwright.json` and `reports/cloudflare-storage.json`. Deployment steps are in [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). The local runtime checks do not prove publication into a Cloudflare account.

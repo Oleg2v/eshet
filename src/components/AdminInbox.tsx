@@ -13,7 +13,7 @@ type Inbox = {
     topDestinations: { name: string; count: number }[];
   };
   demoCount: number;
-  storage: "local-demo" | "ephemeral";
+  storage: "local-demo" | "ephemeral" | "cloudflare-d1";
 };
 export default function AdminInbox({ locale }: { locale: Locale }) {
   const t = (he: string, ru: string, en: string) => pick(locale, he, ru, en);
@@ -230,17 +230,23 @@ export default function AdminInbox({ locale }: { locale: Locale }) {
         )}
       </p>
       <p className="small muted">
-        {inbox.storage === "ephemeral"
+        {inbox.storage === "cloudflare-d1"
           ? t(
-              "האחסון זמני למופע ההדגמה הזה. לחיבור אמיתי יש להשתמש ב־CRM או במסד נתונים.",
-              "Данные хранятся временно в этом экземпляре демоверсии. Для рабочего запуска нужен CRM или база данных.",
-              "Storage is temporary to this demo instance. Production needs a CRM or database.",
+              "הפניות נשמרות במערכת ההדגמה בענן. אין כאן אישורי הזמנה.",
+              "Заявки сохраняются в облачной демосистеме. Это не подтверждения бронирования.",
+              "Enquiries are saved in the cloud demonstration system. These are not booking confirmations.",
             )
-          : t(
-              "הפניות נשמרות מקומית בסביבת ההדגמה. אין כאן אישורי הזמנה.",
-              "Заявки сохраняются локально в демосреде. Это не подтверждения бронирования.",
-              "Enquiries are saved locally in the demo environment. These are not booking confirmations.",
-            )}
+          : inbox.storage === "ephemeral"
+            ? t(
+                "האחסון זמני למופע ההדגמה הזה. לחיבור אמיתי יש להשתמש ב־CRM או במסד נתונים.",
+                "Данные хранятся временно в этом экземпляре демоверсии. Для рабочего запуска нужен CRM или база данных.",
+                "Storage is temporary to this demo instance. Production needs a CRM or database.",
+              )
+            : t(
+                "הפניות נשמרות מקומית בסביבת ההדגמה. אין כאן אישורי הזמנה.",
+                "Заявки сохраняются локально в демосреде. Это не подтверждения бронирования.",
+                "Enquiries are saved locally in the demo environment. These are not booking confirmations.",
+              )}
       </p>
       <div className="popular-destinations">
         <h3>

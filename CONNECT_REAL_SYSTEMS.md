@@ -68,3 +68,7 @@ Never remove example labels until the displayed value comes from a verified quot
 ## Outbound access
 
 The key-free demo requires no travel or AI API access. When enabling a provider in a restricted cloud environment, permit `api.openai.com` or `api.anthropic.com` for the selected provider and the exact approved HTTPS host of `LEAD_WEBHOOK_URL`. Keep credentials server-side and use normal TLS verification. Official visa sources and WhatsApp are visitor-opened links, not background API integrations.
+
+## Cloudflare runtime
+
+Cloudflare deployments use the configured `LEADS_DB` D1 binding for durable enquiry records. The Node development fallback still uses `.data`; Vercel still needs an external durable store. See [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md) for migrations, account access and deployment commands.

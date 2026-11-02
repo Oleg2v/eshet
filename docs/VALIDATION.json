@@ -62,5 +62,24 @@
     "Mobile Lighthouse uses local Chromium with simulated throttling, not a physical-phone field measurement.",
     "Paid LLM provider calls, a real CRM webhook, real inventory and a public deployment were not exercised. No provider keys or production recipients were supplied.",
     "Automated axe checks are not a WCAG or IS5568 legal certification."
-  ]
+  ],
+  "cloudflare": {
+    "adapter": "@opennextjs/cloudflare 1.20.15",
+    "wrangler": "4.156.1",
+    "build": "passed",
+    "localMigration": "passed",
+    "localRuntimeTests": {
+      "passed": 59,
+      "failed": 0,
+      "skipped": 0
+    },
+    "storage": "D1; verified after Worker restart",
+    "dryRun": {
+      "passed": true,
+      "uploadKiB": 6228.69,
+      "gzipKiB": 1286.08
+    },
+    "publicDeployment": "blocked: no account authentication and current API egress denial",
+    "attribution": "rendered he/ru/en pages checked; no provider or AI-creator attribution"
+  }
 }

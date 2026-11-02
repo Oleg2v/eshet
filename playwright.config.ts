@@ -10,7 +10,13 @@ export default defineConfig({
   reporter: [
     ["list"],
     ["html", { open: "never" }],
-    ["json", { outputFile: "reports/playwright.json" }],
+    [
+      "json",
+      {
+        outputFile:
+          process.env.PLAYWRIGHT_JSON_OUTPUT_NAME || "reports/playwright.json",
+      },
+    ],
   ],
   use: {
     baseURL: process.env.TEST_BASE_URL || "http://127.0.0.1:3000",

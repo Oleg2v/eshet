@@ -1,6 +1,11 @@
 import type { NextRequest } from "next/server";
 import { authenticated } from "@/lib/server/auth";
-import { demoLeads, leadStats, readLeads } from "@/lib/server/leads";
+import {
+  demoLeads,
+  leadStorageKind,
+  leadStats,
+  readLeads,
+} from "@/lib/server/leads";
 import { errorResponse, json } from "@/lib/server/http";
 export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
@@ -14,7 +19,7 @@ export async function GET(request: NextRequest) {
       leads,
       stats: leadStats(leads),
       demoCount: 7,
-      storage: process.env.VERCEL ? "ephemeral" : "local-demo",
+      storage: leadStorageKind(),
     });
   } catch {
     return errorResponse(503, "he", "storage");
