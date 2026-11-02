@@ -16,6 +16,7 @@
     {
       "binding": "LEADS_DB",
       "database_name": "eshet-concept-leads",
+      "database_id": "b24c5c70-ea8c-46da-81e9-d7947fd05aff",
       "migrations_dir": "migrations",
     },
   ],
