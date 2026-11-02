@@ -1,6 +1,28 @@
 import { expect, test } from "@playwright/test";
 import { scenarios } from "./scenarios";
 
+test("public planning APIs do not expose implementation identities", async ({
+  request,
+}) => {
+  for (const locale of ["he", "ru", "en"] as const) {
+    for (const [path, input] of [
+      ["/api/planner", { prompt: "A quiet weekend in the Galilee" }],
+      ["/api/tours", { destination: "Japan" }],
+      ["/api/visa", { destination: "United States" }],
+    ] as const) {
+      const response = await request.post(path, {
+        data: { locale, ...input },
+      });
+      const body = await response.text();
+      expect(response.ok(), body).toBeTruthy();
+      expect(body).not.toMatch(
+        /claude|anthropic|openai|chatgpt|velikotrav2307|workers\.dev/i,
+      );
+      expect(body).not.toMatch(/"(?:provider|model|model_id)"\s*:/i);
+    }
+  }
+});
+
 for (const locale of ["he", "ru", "en"] as const) {
   for (const scenario of scenarios) {
     test(`planner: ${locale} / ${scenario.id}`, async ({ request }) => {

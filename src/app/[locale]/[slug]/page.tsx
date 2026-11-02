@@ -8,6 +8,8 @@ import DealBoard from "@/components/DealBoard";
 import AdminInbox from "@/components/AdminInbox";
 import CookieControls from "@/components/CookieControls";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/site";
+export const dynamicParams = false;
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
     Object.keys(pages).map((slug) => ({ locale, slug })),
@@ -19,10 +21,9 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  return {
-    title: pages[slug]?.title[locale] ?? "Eshet Tours",
-    robots: { index: false, follow: false },
-  };
+  const page = pages[slug];
+  if (!page) notFound();
+  return pageMetadata(locale, page.title[locale], page.intro[locale], slug);
 }
 export default async function Page({
   params,

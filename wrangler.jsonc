@@ -1,14 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "eshet-tours-concept",
+  "name": "eshet",
+  "account_id": "be9447e281c6e9198712ade2d0241029",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2026-11-01",
+  "compatibility_date": "2026-11-02",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "workers_dev": true,
+  "keep_vars": true,
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "eshet.kikkey.com", "custom_domain": true }],
+  "observability": { "enabled": true },
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
-  "services": [
-    { "binding": "WORKER_SELF_REFERENCE", "service": "eshet-tours-concept" },
-  ],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "eshet" }],
   "d1_databases": [
     {
       "binding": "LEADS_DB",

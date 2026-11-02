@@ -67,10 +67,22 @@ No OpenAI/Anthropic key, real inventory connection, production webhook recipient
 
 - [x] OpenNext Worker build passes with all API routes.
 - [x] Local D1 migration passes; the protected inbox reports `cloudflare-d1`.
-- [x] Full Playwright suite against the actual local Workers runtime: **59 passed, 0 failed, 0 skipped**.
+- [x] Full Playwright suite against the actual local Workers runtime: **60 passed, 0 failed, 0 skipped**.
 - [x] A submitted test enquiry remains available after stopping and restarting the Worker.
-- [x] Wrangler deploy dry-run passes: **6,228.69 KiB total / 1,286.08 KiB gzip**. No upload takes place during this check.
+- [x] Wrangler deploy dry-run passes: **6,289.14 KiB total / 1,297.57 KiB gzip**. No upload takes place during this check.
 - [x] Rendered Hebrew, Russian and English home pages have no provider/AI-creator attribution.
 - [ ] **Public Cloudflare deployment is blocked by account access.** Wrangler reports no authenticated account; this environment's current proxy policy rejects `api.cloudflare.com`. A secure token requirement and the required API destination were saved in the environment draft. No public deployment URL is claimed.
 
 Evidence is in ignored `reports/cloudflare-playwright.json` and `reports/cloudflare-storage.json`. Deployment steps are in [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). The local runtime checks do not prove publication into a Cloudflare account.
+
+## Custom Domain preparation — 2 November 2026
+
+- [x] Worker `eshet` and the owner's specified account are pinned in configuration and the deploy script.
+- [x] `eshet.kikkey.com` is the configured Custom Domain; public workers.dev and preview URLs are disabled in configuration.
+- [x] Canonical, language alternates, Open Graph image and sitemap use the configured origin. All pages are noindex/nofollow; robots.txt disallows crawling.
+- [x] Static assets and server responses have the requested security headers.
+- [x] All 123 emitted public HTML/JS/CSS artifacts were scanned; no forbidden provider/creator/account identifiers were found.
+- [x] Deploy guard rejects a conflicting account, command overrides and a missing D1 ID before any upload.
+- [x] Local deployment validator: all 75 sitemap pages pass; 4 unknown routes return 404; 150 browser checks at 390/1440px have no console errors or horizontal overflow; 10 API checks, consent controls and a synthetic local enquiry pass. Evidence: ignored `reports/deployment-local.json`.
+- [ ] Live DNS, TLS, public routing and disabled workers.dev HTTP 404 remain unverified because publication is blocked by runtime access.
+- [ ] The real dedicated D1 database ID and schema must be verified. Creating the database or applying a remote migration requires separate owner approval.

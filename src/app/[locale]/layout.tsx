@@ -6,14 +6,17 @@ import "@/components/globe.css";
 import "@/components/tools.css";
 import Shell from "@/components/Shell";
 import { locales, type Locale } from "@/lib/types";
+import { siteOrigin } from "@/lib/site";
+export const dynamicParams = false;
 export const metadata: Metadata = {
+  metadataBase: new URL(siteOrigin),
   title: {
     default: "אשת טורס — איזו חופשה בא לכם?",
     template: "%s · Eshet Tours — Design concept",
   },
   description:
     "A considered way to find your next holiday. Eshet Tours design concept. Illustrative travel information.",
-  robots: { index: false, follow: false, nocache: true },
+  robots: { index: false, follow: false },
   icons: { icon: "/icon.svg" },
 };
 export const viewport: Viewport = {

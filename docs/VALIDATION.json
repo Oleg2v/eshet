@@ -7,7 +7,7 @@
     "build": "npm run build — passed, includes 200000-byte globe gate",
     "lint": "npm run lint — passed",
     "typecheck": "npm run typecheck — passed",
-    "fullTests": "59 passed, 0 failed, 0 skipped",
+    "fullTests": "60 passed, 0 failed, 0 skipped against local Workers runtime",
     "afterFontChange": "7 targeted checks passed; 30 page/viewport axe scans + 3 interactive states",
     "finalMobileChecks": "3 passed, covering 21 route/locale combinations at 390px",
     "lighthouse": "npm run audit — passed, exact CLS = 0 required",
@@ -69,17 +69,43 @@
     "build": "passed",
     "localMigration": "passed",
     "localRuntimeTests": {
-      "passed": 59,
+      "passed": 60,
       "failed": 0,
       "skipped": 0
     },
     "storage": "D1; verified after Worker restart",
     "dryRun": {
       "passed": true,
-      "uploadKiB": 6228.69,
-      "gzipKiB": 1286.08
+      "uploadKiB": 6289.14,
+      "gzipKiB": 1297.57
     },
-    "publicDeployment": "blocked: no account authentication and current API egress denial",
-    "attribution": "rendered he/ru/en pages checked; no provider or AI-creator attribution"
+    "publicDeployment": "blocked: current runtime lacks CLOUDFLARE_API_TOKEN and API egress; real D1 ID/schema prerequisite unresolved",
+    "attribution": "rendered he/ru/en pages checked; no provider or AI-creator attribution",
+    "configuredOrigin": "https://eshet.kikkey.com",
+    "worker": "eshet",
+    "accountId": "be9447e281c6e9198712ade2d0241029",
+    "workersDevEnabled": false,
+    "previewUrlsEnabled": false,
+    "publicArtifactScan": {
+      "files": 123,
+      "forbiddenMatches": 0,
+      "scope": "All emitted public HTML, JavaScript and CSS; excludes private server integration code"
+    },
+    "databaseApproval": "Creation and remote schema migration require owner approval under the current deployment scope.",
+    "deploymentGuard": "Correct target accepted; conflicting account, CLI overrides and missing database rejected before upload.",
+    "customDomainLocalPreflight": {
+      "passed": true,
+      "sitemapPages": 75,
+      "browserChecks": 150,
+      "viewportWidths": [390, 1440],
+      "consoleErrors": 0,
+      "horizontalOverflow": false,
+      "notFoundPaths": 4,
+      "servedAssetsScanned": 16,
+      "apiChecks": 10,
+      "syntheticLocalBrief": "passed",
+      "liveWorkersDevCheck": "not-run",
+      "report": "reports/deployment-local.json"
+    }
   }
 }

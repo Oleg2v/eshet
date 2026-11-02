@@ -1,3 +1,5 @@
+import "server-only";
+
 import type { Locale } from "@/lib/types";
 import { optionsForScenario, scenarios } from "./catalog";
 import { isObject } from "./http";

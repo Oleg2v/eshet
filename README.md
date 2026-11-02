@@ -18,7 +18,11 @@ No API key is required: the planner uses scripted demo flows and every public to
 
 ## Deploy to Cloudflare
 
-Cloudflare Workers is supported with OpenNext and durable D1 enquiry storage. Build with `npm run cf:build`, validate locally with `npm run cf:migrate:local` and `npm run cf:preview`, and deploy with `npm run cf:deploy` after configuring the authorised account and database. Full steps and the current access requirements are in [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md).
+Configured address: **https://eshet.kikkey.com**. Publication is pending; this address has not yet been verified live. The target is Worker `eshet` in the owner's account `be9447e281c6e9198712ade2d0241029`. Public `workers.dev` and version preview URLs are disabled. Other Workers and domains are outside this deployment's scope.
+
+The Next.js application runs on Cloudflare Workers through OpenNext, with D1 for durable enquiries. `npm run cf:check` checks the deployment target. Build with `npm run cf:build`, then deploy with `npm run cf:deploy` after secure account access and the approved database are available. The deploy script pins the account/domain and refuses automatic database provisioning. Creating the database, applying its remote migration or adding Worker secrets requires separate owner approval.
+
+Run `npm run cf:verify -- --live` after publication to check sitemap pages, metadata, headers, APIs, public assets and browser layouts. Local verification uses `npm run cf:migrate:local`, `npm run cf:preview`, then `npm run cf:verify -- --base http://127.0.0.1:8787`. Full steps, required permissions and the current blockers are in [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md).
 
 ## Deploy to Vercel
 
